@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,9 @@ import { CrisisListComponent } from './crisis/crisis-list/crisis-list.component'
 import { CrisisDetailComponent } from './crisis/crisis-detail/crisis-detail.component';
 import { CrisisCenterComponent } from './crisis/crisis-center/crisis-center.component';
 import { CrisisCenterHomeComponent } from './crisis/crisis-center-home/crisis-center-home.component';
+
+
+import  { createCustomElement } from '@angular/elements';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,16 @@ import { CrisisCenterHomeComponent } from './crisis/crisis-center-home/crisis-ce
     BrowserModule,
     AppRoutingModule
   ],
+  entryComponents: [
+    HeroListComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector : Injector){}
+  ngDoBootstrap(){
+      const el = createCustomElement(AppComponent, {injector : this.injector});
+      customElements.define('custom-root',el);
+  }
+}
