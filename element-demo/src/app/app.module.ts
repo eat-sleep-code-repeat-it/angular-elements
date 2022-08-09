@@ -11,7 +11,7 @@ import { CrisisCenterComponent } from './crisis/crisis-center/crisis-center.comp
 import { CrisisCenterHomeComponent } from './crisis/crisis-center-home/crisis-center-home.component';
 
 
-import  { createCustomElement } from '@angular/elements';
+import  { createCustomElement } from '@angular/elements'; 
 
 @NgModule({
   declarations: [
@@ -28,15 +28,16 @@ import  { createCustomElement } from '@angular/elements';
     AppRoutingModule
   ],
   entryComponents: [
-    HeroListComponent
+    AppComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  // must comment out boostrap when build web component
+  // bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(private injector : Injector){}
   ngDoBootstrap(){
       const el = createCustomElement(AppComponent, {injector : this.injector});
-      customElements.define('custom-root',el);
+      customElements.define('custom-main-mfe',el);
   }
 }
